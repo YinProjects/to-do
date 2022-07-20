@@ -1,37 +1,36 @@
-import React, {Component, Fragment} from 'react'
-import {connect} from 'react-redux'
-import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Home from './components/Home';
-import {me} from './store'
+// import {me} from './store'
 
+// class Routes extends Component {
+// 	componentDidMount() {
+// 		this.props.loadInitialData();
+// 	}
 
-class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData()
-  }
+// 	render() {
+// 		const { isLoggedIn } = this.props;
 
-  render() {
-    const {isLoggedIn} = this.props
-
-    return (
-      <div>
-        {isLoggedIn ? (
-          <Switch>
-            <Route path="/home" component={Home} />
-            <Redirect to="/home" />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route path='/' exact component={ Login } />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-          </Switch>
-        )}
-      </div>
-    )
-  }
-}
-
+// 		return (
+// 			<div>
+// 				{isLoggedIn ? (
+// 					<Switch>
+// 						<Route path="/home" component={Home} />
+// 						<Redirect to="/home" />
+// 					</Switch>
+// 				) : (
+// 					<Switch>
+// 						<Route path="/" component={Home} />
+// 						<Route path="/" exact component={Login} />
+// 						<Route path="/login" component={Login} />
+// 						<Route path="/signup" component={Signup} />
+// 					</Switch>
+// 				)}
+// 			</div>
+// 		);
+// 	}
+// }
 
 // const mapState = state => {
 //   return {
@@ -47,7 +46,15 @@ class Routes extends Component {
 //   }
 // }
 
-
 // export default withRouter(connect(mapState, mapDispatch)(Routes))
 
-export default Routes
+function Routes() {
+	return (
+		<div>
+			<Switch>
+				<Route path="/" component={Home} />
+			</Switch>
+		</div>
+	);
+}
+export default Routes;
