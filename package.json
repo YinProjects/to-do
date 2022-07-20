@@ -1,0 +1,35 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "to do list project",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "build:dev": "npm run build -- --watch --mode=development",
+    "seed": "node script/seed.js",
+    "start": "node server",
+    "start:dev": "npm run build:dev & npm run start-server",
+    "start-server": "nodemon server -e html,js,scss --ignore public --ignore client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YinProjects/to-do-list.git"
+  },
+  "author": "Olivia Liao & Wai Yin Tan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YinProjects/to-do-list/issues"
+  },
+  "homepage": "https://github.com/YinProjects/to-do-list#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "express": "^4.18.1",
+    "morgan": "^1.10.0",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0",
+    "redux": "^4.2.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.4.1",
+    "sequelize": "^6.21.3"
+  }
+}
