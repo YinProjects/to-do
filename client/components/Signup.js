@@ -1,12 +1,29 @@
 import React from 'react'
+import {useDispatch} from 'react-redux'
+import {addUser} from '../store/user'
 
 const Signup = (props) => {
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (evt) => {
+		evt.preventDefault();
+    const name = evt.target.name.value
+		const username = evt.target.username.value;
+		const password = evt.target.password.value;
+		dispatch(addUser({name, username, password}));
+	};
 
   return (
     <div>
 			<h1>Signup Here!</h1>
-      <form>
-			{/* <form onSubmit={handleSubmit}> */}
+			<form onSubmit={handleSubmit}>
+      <div>
+					<label htmlFor="name">
+						<small>Name</small>
+					</label>
+					<input name="name" type="text" />
+				</div>
 				<div>
 					<label htmlFor="username">
 						<small>Username</small>

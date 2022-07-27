@@ -2,17 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { user } from '../store';
+//react hooks
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = () => {
+	const user = useSelector((state) => state.user);
+
+  useEffect(() => {}, [user]);
+
+	return (
 	<div>
 		<h1>To Do List</h1>
 		<nav>
-			{isLoggedIn ? (
+			{user.username ? (
 				<div>
 					<Link to="/home">Home</Link>
-					<a href="#" onClick={handleClick}>
+					{/* <a href="#" onClick={handleClick}>
 						Logout
-					</a>
+					</a> */}
 				</div>
 			) : (
 				<div>
@@ -23,20 +31,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 		</nav>
 		<hr />
 	</div>
-);
-
-const mapState = (state) => {
-	return {
-		isLoggedIn: !!state.user.id,
-	};
+	)
 };
 
-const mapDispatch = (dispatch) => {
-	return {
-		handleClick() {
-			alert('logout clicked');
-		},
-	};
-};
 
-export default connect(mapState, mapDispatch)(Navbar);
+export default Navbar

@@ -1,37 +1,42 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 
 //react hooks
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 // import {me} from './store'
 
 //components
-import Home from './components/Home';
-import Login from './components/LoginForm';
-import Signup from './components/Signup'
+import Home from "./components/Home";
+import Login from "./components/LoginForm";
+import Signup from "./components/Signup";
 
 function Routes() {
-	const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
-	useEffect(() => {}, [user]);
+  useEffect(() => {}, [user]);
 
-	return (
-		<div>
-			{user.username ? (
-				<Switch>
+  return (
+    <div>
+      {user.username ? (
+        <Switch>
+					<Route exact path = "/home" component = {Home} />
 					<Route exact path="/" component={Home} />
-				</Switch>
-			) : (
-				<Switch>
-					<Route exact path="/" component={Login} />
-					<Route exact path ="/signup" component = {Signup} />
-					<Route exact path="/login" component={Login} />
-				</Switch>
-			)}
-		</div>
-	);
+					<Redirect from= "/" to= "/home" />
+          <Redirect from="/login" to="/home" />
+          <Redirect from="/signup" to="/home" />
+
+        </Switch>
+      ) : (
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/login" component={Login} />
+        </Switch>
+      )}
+    </div>
+  );
 }
 export default Routes;
 
