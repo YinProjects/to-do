@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 //components
 import Home from './components/Home';
 import Login from './components/LoginForm';
+import Signup from './components/Signup'
 
 function Routes() {
 	const user = useSelector((state) => state.user);
@@ -25,6 +26,7 @@ function Routes() {
 			) : (
 				<Switch>
 					<Route exact path="/" component={Login} />
+					<Route exact path ="/signup" component = {Signup} />
 					<Route exact path="/login" component={Login} />
 				</Switch>
 			)}
