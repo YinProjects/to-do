@@ -2,7 +2,20 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Home from './components/Home';
+import Login from './components/LoginForm';
 // import {me} from './store'
+
+function Routes() {
+	return (
+		<div>
+			<Switch>
+				<Route exact path="/" component={Home} />
+				<Route exact path="/login" component={Login} />
+			</Switch>
+		</div>
+	);
+}
+export default Routes;
 
 // class Routes extends Component {
 // 	componentDidMount() {
@@ -47,14 +60,3 @@ import Home from './components/Home';
 // }
 
 // export default withRouter(connect(mapState, mapDispatch)(Routes))
-
-function Routes() {
-	return (
-		<div>
-			<Switch>
-				<Route path="/" component={Home} />
-			</Switch>
-		</div>
-	);
-}
-export default Routes;
