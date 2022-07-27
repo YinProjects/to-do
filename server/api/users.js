@@ -21,9 +21,10 @@ router.post('/user', async (req, res, next) => {
 			where: {
 				username: req.body.username,
 			},
-			attributes: ['id', 'username'],
+			attributes: ['id', 'username', 'password'],
 		});
 
+		console.log('user', user);
 		if (!user || user.password !== req.body.password) {
 			const error = Error('Incorrect username/password');
 			error.status = 401;
