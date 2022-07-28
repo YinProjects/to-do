@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 
 //react hooks
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { tokenConfirm } from "./store/user";
 // import {me} from './store'
 
 //components
@@ -13,7 +14,12 @@ import Login from "./components/LoginForm";
 import Signup from "./components/Signup";
 
 function Routes() {
+	const dispatch = useDispatch()
   const user = useSelector((state) => state.user);
+
+	useEffect(()=> {
+		dispatch(tokenConfirm())
+	},[])
 
   useEffect(() => {}, [user]);
 
