@@ -1,12 +1,16 @@
-const db = require('./db')
+const db = require('./db');
 
-const User = require('./models/User')
+const User = require('./models/User');
+const Todo = require('./models/Todo');
 
 //associations could go here!
+User.hasMany(Todo);
+Todo.belongsTo(User);
 
 module.exports = {
-  db,
-  models: {
-    User,
-  },
-}
+	db,
+	models: {
+		User,
+		Todo,
+	},
+};

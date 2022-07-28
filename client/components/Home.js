@@ -1,13 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
+//react hooks
+import { useSelector, useDispatch } from 'react-redux';
 
-export const Home = (props) => {
-	// const { username } = props;
+export const Home = () => {
+	const user = useSelector((state) => state.user);
+	const todos = user.todos;
 
 	return (
 		<div>
-			{/* <h3>Welcome, {username}</h3> */}
-			<h3>Welcome</h3>
+			<div>
+				<h3>Welcome, {user.name}</h3>
+			</div>
+			<div>
+				<h4>To Dos</h4>
+				<table>
+					<thead>
+						<tr>
+							<th>Tasks</th>
+							<th>Status</th>
+							<th>Priority</th>
+						</tr>
+					</thead>
+					<tbody>
+						{todos.map((todo) => (
+							<tr key={todo.id}>
+								<td>{todo.task}</td>
+								<td>{todo.status}</td>
+								<td>{todo.priority}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	);
 };
