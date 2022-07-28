@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const USERNAME = "username"
+
 const GET_ONE_USER = "GET_ONE_USER";
 const ADD_USER = "ADD_USER";
 
@@ -9,12 +11,26 @@ const _getOneUser = (user) => ({
   user,
 });
 
-const _addUser = (newUser) => ({
-  type: ADD_USER,
-  newUser,
-});
+
 
 //thunk creator
+
+export const tokenConfirm = () => {
+  return async (dispatch) => {
+     const token = window.localStorage.getItem(USERNAME);
+      if (token) {
+        const res = await axios.get(`/api/users/${token}`, {
+          headers: {
+            authorization: token,
+          },
+        });
+        dispatch(_getOneUser(res.data));
+    }
+  }
+}
+
+
+
 export const getOneUser = ({ username, password }) => {
   return async (dispatch) => {
     try {
@@ -22,7 +38,8 @@ export const getOneUser = ({ username, password }) => {
         username,
         password,
       });
-      dispatch(_getOneUser(user));
+      window.localStorage.setItem(USERNAME, user.username)
+      dispatch(tokenConfirm())
     } catch (error) {
       console.error("Unable to get user", error);
     }
@@ -37,7 +54,8 @@ export const addUser = ({ name, username, password }) => {
         username,
         password,
       });
-      dispatch(_addUser(newUser));
+      window.localStorage.setItem(USERNAME, newUser.username)
+      dispatch(tokenConfirm())
     } catch (error) {
       console.error("Unable to add user", error);
     }
