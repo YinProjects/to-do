@@ -8,7 +8,7 @@ import AddTodo from './AddTodo'
 
 export const Home = () => {
 	const user = useSelector((state) => state.user);
-	const todos = user.todos;
+	const todos = useSelector((state) => state.todos)
 
 	return (
 		<div>

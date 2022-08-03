@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 
 //react hooks
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { tokenConfirm } from "./store/user";
+import { getTodos } from "./store/todos";
 // import {me} from './store'
 
 //components
@@ -14,25 +15,28 @@ import Login from "./components/LoginForm";
 import Signup from "./components/Signup";
 
 function Routes() {
-	const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
-	useEffect(()=> {
-		dispatch(tokenConfirm())
-	},[])
+  useEffect(() => {
+    dispatch(tokenConfirm());
+  }, []);
 
-  useEffect(() => {}, [user]);
+  useEffect(() => {
+    if (user.id) {
+      dispatch(getTodos(user.id));
+    }
+  }, [user]);
 
   return (
     <div>
       {user.username ? (
         <Switch>
-					<Route exact path = "/home" component = {Home} />
-					<Route exact path="/" component={Home} />
-					<Redirect from= "/" to= "/home" />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/" component={Home} />
+          <Redirect from="/" to="/home" />
           <Redirect from="/login" to="/home" />
           <Redirect from="/signup" to="/home" />
-
         </Switch>
       ) : (
         <Switch>

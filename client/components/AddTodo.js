@@ -3,7 +3,11 @@ import React from "react";
 const AddTodo = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    // const task = evt.target.task.value
+    // const priority = evt.target.priority.value
+    // dispatch(addTask({task, priority}))
   };
+
   return (
     <div>
       <h3>Add Task</h3>
