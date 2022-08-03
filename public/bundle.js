@@ -2617,13 +2617,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_todos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/todos */ "./client/store/todos.js");
+
+
 
 
 const AddTodo = props => {
+  const user = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.user);
+  const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+
   const handleSubmit = evt => {
-    evt.preventDefault(); // const task = evt.target.task.value
-    // const priority = evt.target.priority.value
-    // dispatch(addTask({task, priority}))
+    evt.preventDefault();
+    const task = evt.target.task.value;
+    const priority = evt.target.priority.value;
+    const userId = user.id;
+    dispatch((0,_store_todos__WEBPACK_IMPORTED_MODULE_2__.addTask)({
+      task,
+      priority,
+      userId
+    }));
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Add Task"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
@@ -2639,11 +2652,11 @@ const AddTodo = props => {
     id: "priority",
     name: "priority"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
-    value: "low"
+    value: "Low"
   }, "Low"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
-    value: "medium"
+    value: "Medium"
   }, "Medium"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
-    value: "high"
+    value: "High"
   }, "High"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     type: "submit"
   }, "Add Task"))));
@@ -2918,17 +2931,24 @@ const store = (0,redux__WEBPACK_IMPORTED_MODULE_5__.createStore)(reducer, middle
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addTask": () => (/* binding */ addTask),
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   "getTodos": () => (/* binding */ getTodos)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-const GET_TODOS = "GET_TODOS";
+const GET_TODOS = 'GET_TODOS';
+const ADD_TODO = 'ADD_TODO';
 
 const _getTodos = todos => ({
   type: GET_TODOS,
   todos
+});
+
+const _addTodo = todo => ({
+  type: ADD_TODO,
+  todo
 });
 
 const getTodos = id => {
@@ -2939,7 +2959,27 @@ const getTodos = id => {
       } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/todos/${id}`);
       dispatch(_getTodos(todos));
     } catch (error) {
-      console.error("Unable to get all todos", error);
+      console.error('Unable to get all todos', error);
+    }
+  };
+};
+const addTask = ({
+  task,
+  priority,
+  userId
+}) => {
+  return async dispatch => {
+    try {
+      const {
+        data: newTodo
+      } = await axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/todos', {
+        task,
+        priority,
+        userId
+      });
+      dispatch(_addTodo(newTodo));
+    } catch (error) {
+      console.error('Unable to add todo', error);
     }
   };
 };
@@ -2947,6 +2987,9 @@ const getTodos = id => {
   switch (action.type) {
     case GET_TODOS:
       return action.todos;
+
+    case ADD_TODO:
+      return [...state, action.todo];
 
     default:
       return state;
