@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 //react hooks
 import { useSelector, useDispatch } from 'react-redux';
 
+//components
+import AddTodo from './AddTodo'
+
 export const Home = () => {
 	const user = useSelector((state) => state.user);
 	const todos = user.todos;
@@ -32,6 +35,7 @@ export const Home = () => {
 						))}
 					</tbody>
 				</table>
+				<AddTodo />
 			</div>
 		</div>
 	);
