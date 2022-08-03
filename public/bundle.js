@@ -2623,34 +2623,47 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const AddTodo = props => {
+  const [task, setTask] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [priority, setPriority] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('Low');
   const user = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.user);
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   const handleSubmit = evt => {
-    evt.preventDefault();
-    const task = evt.target.task.value;
-    const priority = evt.target.priority.value;
+    evt.preventDefault(); // const task = evt.target.task.value;
+    // const priority = evt.target.priority.value;
+
     const userId = user.id;
     dispatch((0,_store_todos__WEBPACK_IMPORTED_MODULE_2__.addTask)({
       task,
       priority,
       userId
     }));
-  };
+    setTask('');
+    setPriority('Low');
+  }; // const handleChange = (evt) => {
+  // 	if (evt.target.name === 'task') setTask(evt.target.value);
+  // 	if (evt.target.name === 'priority') setPriority;
+  // };
+
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Add Task"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: handleSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
     htmlFor: "task"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", null, "Task")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    onChange: evt => setTask(evt.target.value),
+    value: task,
     name: "task",
     type: "text"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
     htmlFor: "priority"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", null, "Priority")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
+    onChange: evt => setPriority(evt.target.value),
     id: "priority",
-    name: "priority"
+    name: "priority",
+    value: priority
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
     value: "Low"
   }, "Low"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
